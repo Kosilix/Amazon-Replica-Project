@@ -58,7 +58,6 @@ function loadProducts(array){
     document.querySelectorAll(`.add-to-cart-button`).forEach((button) => {
       document.getElementById(button.id).addEventListener("click", () => {
         addToCart(button.id)
-        console.log(cart)
       })
     })
   })
