@@ -1,10 +1,10 @@
 import {products} from "../data/products.js"
+import { cart, addToCart } from "./cart.js"
 
 function loadProducts(array){
     let productsGrid = document.getElementById("products-grid")
     productsGrid.innerHTML = ''
   array.forEach((product) => {
-    console.log(product.name)
     productsGrid.innerHTML += `       
   <div class="product-container">
     <div class="product-image-container">
@@ -50,11 +50,17 @@ function loadProducts(array){
       Added
     </div>
 
-    <button class="add-to-cart-button button-primary" id="button-${product.id}">
+    <button class="add-to-cart-button button-primary" id="${product.id}">
       Add to Cart
     </button>
   </div>
 `
+    document.querySelectorAll(`.add-to-cart-button`).forEach((button) => {
+      document.getElementById(button.id).addEventListener("click", () => {
+        addToCart(button.id)
+        console.log(cart)
+      })
+    })
   })
 }
 
