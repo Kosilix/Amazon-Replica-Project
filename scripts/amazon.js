@@ -45,7 +45,7 @@ function loadProducts(array){
 
     <div class="product-spacer"></div>
 
-    <div class="added-to-cart">
+    <div class="added-to-cart" id="check-${product.id}">
       <img src="images/icons/checkmark.png">
       Added
     </div>
@@ -59,6 +59,7 @@ function loadProducts(array){
   document.querySelectorAll(`.add-to-cart-button`).forEach((button) => {
     button.addEventListener("click", () => {
       addToCart(button.id, Number(document.getElementById(`select-${button.id}`).value))
+      showAdded(button.id)
       updateCartQuantity()
     })
   })
@@ -69,4 +70,16 @@ loadProducts(products);
 
 function updateCartQuantity(){
   document.querySelector(".cart-quantity").textContent = getCartQuantity()
+}
+
+let timeout;
+function showAdded(id){
+  if(timeout){
+    clearTimeout(timeout)
+  }
+  timeout = setTimeout(()=> {
+    document.getElementById(`check-${id}`).style.opacity = 0
+  }, 1000)
+  document.getElementById(`check-${id}`).style.opacity = 100
+  timeout
 }
