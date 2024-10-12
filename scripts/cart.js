@@ -16,3 +16,11 @@ export function addToCart(productId){
     })
   }
 }
+
+export function getCartQuantity(){
+  let cartQuantity = 0
+  cart.forEach((cartProduct) => {
+    cartQuantity += cartProduct.quantity
+  })
+  return cartQuantity
+}

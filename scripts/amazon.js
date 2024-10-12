@@ -1,5 +1,5 @@
 import {products} from "../data/products.js"
-import { cart, addToCart } from "./cart.js"
+import { cart, addToCart, getCartQuantity } from "./cart.js"
 
 function loadProducts(array){
     let productsGrid = document.getElementById("products-grid")
@@ -58,9 +58,14 @@ function loadProducts(array){
     document.querySelectorAll(`.add-to-cart-button`).forEach((button) => {
       document.getElementById(button.id).addEventListener("click", () => {
         addToCart(button.id)
+        updateCartQuantity()
       })
     })
   })
 }
 
 loadProducts(products);
+
+function updateCartQuantity(){
+  document.querySelector(".cart-quantity").textContent = getCartQuantity()
+}
