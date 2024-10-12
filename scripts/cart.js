@@ -1,17 +1,17 @@
 export let cart = []
 
-export function addToCart(productId){
+export function addToCart(productId, quantity){
   let inCart = false
   cart.forEach((cartProduct) => {
     if (cartProduct.id === productId) {
-      cartProduct.quantity += 1
+      cartProduct.quantity += quantity
       inCart = true
     }
   })
   
   if(inCart === false){
     cart.push({
-      quantity: 1,
+      quantity: quantity,
       id: productId
     })
   }

@@ -29,7 +29,7 @@ function loadProducts(array){
     </div>
 
     <div class="product-quantity-container">
-      <select>
+      <select id="select-${product.id}">
         <option selected value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -55,11 +55,11 @@ function loadProducts(array){
     </button>
   </div>
 `
-    document.querySelectorAll(`.add-to-cart-button`).forEach((button) => {
-      document.getElementById(button.id).addEventListener("click", () => {
-        addToCart(button.id)
-        updateCartQuantity()
-      })
+  })
+  document.querySelectorAll(`.add-to-cart-button`).forEach((button) => {
+    button.addEventListener("click", () => {
+      addToCart(button.id, Number(document.getElementById(`select-${button.id}`).value))
+      updateCartQuantity()
     })
   })
 }
