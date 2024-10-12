@@ -62,6 +62,7 @@ function loadProducts(array){
       updateCartQuantity()
     })
   })
+  updateCartQuantity()
 }
 
 loadProducts(products);
