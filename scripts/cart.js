@@ -12,7 +12,7 @@ export function addToCart(productId, quantity){
       inCart = true
     }
   })
-  
+
   if(inCart === false){
     cart.push({
       quantity: quantity,
@@ -21,6 +21,16 @@ export function addToCart(productId, quantity){
   }
   saveToStorage()
 }
+
+export function removeFromCart(productId){
+  cart.forEach((cartProduct, i) => {
+    if(cartProduct.id === productId){
+      cart.splice(i, 1)
+      saveToStorage()
+    }
+  })
+}
+
 
 export function getCartQuantity(){
   let cartQuantity = 0

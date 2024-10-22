@@ -1,4 +1,4 @@
-import { cart } from "./cart.js";
+import { cart, removeFromCart } from "./cart.js";
 import { products } from "../data/products.js";
 
 function loadProducts(){
@@ -30,7 +30,7 @@ function loadProducts(){
           <span class="update-quantity-link link-primary">
             Update
           </span>
-          <span class="delete-quantity-link link-primary">
+          <span class="delete-quantity-link link-primary" data-product-id="${product.id}">
             Delete
           </span>
         </div>
@@ -86,6 +86,13 @@ function loadProducts(){
       }
     })
   })
+  document.querySelectorAll(".delete-quantity-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      removeFromCart(link.dataset.productId)
+      loadProducts()
+    })
+  })
 }
 
 loadProducts()
+removeFromCart()
