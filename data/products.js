@@ -4,12 +4,12 @@ class Product {
   name;
   rating;
   priceCents;
-  constructor(product){
-    this.id = product.id;
-    this.image = product.image;
-    this.name = product.name;
-    this.rating = product.rating
-    this.priceCents = product.priceCents;
+  constructor(productDetails){
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.name = productDetails.name;
+    this.rating = productDetails.rating
+    this.priceCents = productDetails.priceCents;
   }
   getStarsUrl(){
     return `images/ratings/rating-${this.rating.stars * 10}.png`
@@ -19,6 +19,19 @@ class Product {
   }
   extraInfo(){
     return ``
+  }
+}
+
+class Clothing extends Product {
+  sizeChartLink
+  constructor(productDetails){
+    super(productDetails)
+    this.sizeChartLink = productDetails.sizeChartLink
+  }
+  extraInfo(){
+    return `<a href="${this.sizeChartLink}" target="_blank">
+              Size chart
+            </a>`
   }
 }
 
@@ -682,5 +695,12 @@ export const products = [
     ]
   }
 ].map((product) => {
-  return new Product(product)
+  switch (product.type) {
+    case 'clothing':
+      return new Clothing(product)
+      break;
+    default:
+      return new Product(product)
+      break;
+  } 
 })
