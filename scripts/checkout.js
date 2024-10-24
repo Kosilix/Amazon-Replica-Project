@@ -21,7 +21,7 @@ function loadProducts(){
           ${product.name}
         </div>
         <div class="product-price">
-          $${(product.priceCents / 100).toFixed(2)}
+          ${(product.getPrice())}
         </div>
         <div class="product-quantity">
           <span>

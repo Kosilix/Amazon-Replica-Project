@@ -1,6 +1,7 @@
 import {products} from "../data/products.js"
 import { cart, addToCart, getCartQuantity } from "./cart.js"
 
+
 function loadProducts(array){
     let productsGrid = document.getElementById("products-grid")
     productsGrid.innerHTML = ''
@@ -18,14 +19,14 @@ function loadProducts(array){
 
     <div class="product-rating-container">
       <img class="product-rating-stars"
-        src="images/ratings/rating-${product.rating.stars * 10}.png">
+        src="${product.getStarsUrl()}">
       <div class="product-rating-count link-primary">
         ${product.rating.count}
       </div>
     </div>
 
     <div class="product-price">
-      $${(product.priceCents / 100).toFixed(2)}
+      ${product.getPrice()}
     </div>
 
     <div class="product-quantity-container">
@@ -43,7 +44,7 @@ function loadProducts(array){
       </select>
     </div>
 
-    <div class="product-spacer"></div>
+    <div class="product-spacer">${product.extraInfo()}</div>
 
     <div class="added-to-cart" id="check-${product.id}">
       <img src="images/icons/checkmark.png">

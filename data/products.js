@@ -1,3 +1,27 @@
+class Product {
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+  constructor(product){
+    this.id = product.id;
+    this.image = product.image;
+    this.name = product.name;
+    this.rating = product.rating
+    this.priceCents = product.priceCents;
+  }
+  getStarsUrl(){
+    return `images/ratings/rating-${this.rating.stars * 10}.png`
+  }
+  getPrice(){
+    return `$${(this.priceCents / 100).toFixed(2)}`
+  }
+  extraInfo(){
+    return ``
+  }
+}
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -657,4 +681,6 @@ export const products = [
       "mens"
     ]
   }
-];
+].map((product) => {
+  return new Product(product)
+})
