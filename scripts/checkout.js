@@ -1,4 +1,4 @@
-import { cart, removeFromCart } from "./cart.js";
+import { cart, removeFromCart, saveToStorage } from "./cart.js";
 import { products } from "../data/products.js";
 
 function loadProducts(){
@@ -23,7 +23,7 @@ function loadProducts(){
         <div class="product-price">
           ${(product.getPrice())}
         </div>
-        <div class="product-quantity">
+        <div class="product-quantity-${product.id}">
           <span>
             Quantity: <span class="quantity-label">${cartProduct.quantity}</span>
           </span>
@@ -90,6 +90,34 @@ function loadProducts(){
     link.addEventListener("click", () => {
       removeFromCart(link.dataset.productId)
       loadProducts()
+    })
+  })
+  document.querySelectorAll(".update-quantity-link").forEach((link, i) => {
+    link.addEventListener("click", () => {
+
+      link.innerHTML = ``
+      document.querySelector(`.product-quantity-${cart[i].id} .quantity-label`).innerHTML = `
+        <input id="${i}-quantity-input" type="number"/>
+        <span class="update-quantity-${i} link-primary">Confirm</span>
+        <span class="cancel-update-quantity-${i} link-primary">Cancel</span>
+        <br>
+        `
+      document.querySelector(`.update-quantity-${i}`).addEventListener("click", () => {
+        let input = document.getElementById(`${i}-quantity-input`).value
+        let regex = /-\d/ 
+        if(!input || regex.test(input) || input == 0) {
+          loadProducts();
+          return;
+        } else {
+          cart[i].quantity = input
+          loadProducts()
+          saveToStorage()
+        }
+      })
+
+      document.querySelector(`.cancel-update-quantity-${i}`).addEventListener("click", () => {
+        loadProducts()
+      })
     })
   })
 }
