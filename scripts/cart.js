@@ -35,7 +35,7 @@ export function removeFromCart(productId){
 export function getCartQuantity(){
   let cartQuantity = 0
   cart.forEach((cartProduct) => {
-    cartQuantity += cartProduct.quantity
+    cartQuantity += Number(cartProduct.quantity)
   })
   return cartQuantity
 }
