@@ -1,4 +1,4 @@
-import { cart, removeFromCart, saveToStorage } from "./cart.js";
+import { cart, getCartQuantity, removeFromCart, saveToStorage } from "./cart.js";
 import { products } from "../data/products.js";
 
 function loadProducts(){
@@ -120,6 +120,57 @@ function loadProducts(){
       })
     })
   })
+
+  document.querySelector(".payment-summary").innerHTML = 
+  `
+         <div class="payment-summary-title">
+            Order Summary
+          </div>
+
+          <div class="payment-summary-row">
+            <div>Items (${getCartQuantity()}):</div>
+            <div class="payment-summary-money">$${findCost.productCost()}</div>
+          </div>
+
+          <div class="payment-summary-row">
+            <div>Shipping &amp; handling:</div>
+            <div class="payment-summary-money">$4.99</div>
+          </div>
+
+          <div class="payment-summary-row subtotal-row">
+            <div>Total before tax:</div>
+            <div class="payment-summary-money">$47.74</div>
+          </div>
+
+          <div class="payment-summary-row">
+            <div>Estimated tax (10%):</div>
+            <div class="payment-summary-money">$4.77</div>
+          </div>
+
+          <div class="payment-summary-row total-row">
+            <div>Order total:</div>
+            <div class="payment-summary-money">$52.51</div>
+          </div>
+
+          <button class="place-order-button button-primary">
+            Place your order
+          </button>
+          `
+}
+
+let findCost = {
+  productCost() {
+      let total = 0;
+      cart.forEach((cartProduct) => {
+      products.forEach((product) => {
+        if (product.id === cartProduct.id){
+          total += (Number(product.priceCents) * cartProduct.quantity)
+        }
+      })
+    })
+    return (total / 100).toFixed(2)
+  },
+
 }
 
 loadProducts()
